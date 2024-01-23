@@ -1,4 +1,5 @@
 ﻿Imports MySql.Data.MySqlClient
+Imports System.Diagnostics
 
 Public Class Form1
     Private isFormLoaded As Boolean = False
@@ -21,14 +22,12 @@ Public Class Form1
         End Using
 
         isFormLoaded = True
-        CenterButtonHorizontally(Upload)
-        CenterButtonHorizontally(View)
+        CenterButtonHorizontally(btnViewPdf)
     End Sub
 
     Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
         If isFormLoaded Then
-            CenterButtonHorizontally(Upload)
-            CenterButtonHorizontally(View)
+            CenterButtonHorizontally(btnViewPdf)
         End If
     End Sub
 
@@ -36,9 +35,5 @@ Public Class Form1
         If btn IsNot Nothing Then
             btn.Left = (Me.ClientSize.Width - btn.Width) / 2
         End If
-    End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-
     End Sub
 End Class

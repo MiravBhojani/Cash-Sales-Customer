@@ -98,6 +98,8 @@ Partial Class Form1
     Friend WithEvents Button2 As Button
     Friend WithEvents Upload As System.Windows.Forms.Button
     Friend WithEvents View As System.Windows.Forms.Button
+    Friend WithEvents btnViewPdf As System.Windows.Forms.Button
+
 
 
 End Class
