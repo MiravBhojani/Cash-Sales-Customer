@@ -1,56 +1,40 @@
 ﻿Imports MySql.Data.MySqlClient
 
 Public Class Form1
-    ' Form Load Event
+    Private isFormLoaded As Boolean = False
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' Database Connection String
         Dim connectionString As String = "server=127.0.0.1;userid=root;password=;database=cashsalescustomers"
         Using connection As New MySqlConnection(connectionString)
             Try
-                ' Open Connection
                 connection.Open()
-
-                ' SQL Query to Fetch Data
                 Dim query As String = "SELECT * FROM cashcustomer_details"
-
-                ' Data Adapter with Query and Connection
                 Dim da As New MySqlDataAdapter(query, connection)
-
-                ' DataSet to Hold Data
                 Dim ds As New DataSet()
-
-                ' Fill DataSet with Data from Database
                 da.Fill(ds, "cashcustomer_details")
-
-                ' Set DataGridView DataSource
                 DataGridView1.DataSource = ds.Tables("cashcustomer_details")
             Catch ex As Exception
-                ' Show any Exception Messages
                 MessageBox.Show(ex.Message)
             Finally
-                ' Close Connection
                 connection.Close()
             End Try
         End Using
+
+        isFormLoaded = True
+        CenterButtonHorizontally(Upload)
+        CenterButtonHorizontally(View)
     End Sub
 
-    ' Event Handler for DataGridView Cell Content Click
-    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
-        ' Add your code here to handle DataGridView cell clicks
+    Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
+        If isFormLoaded Then
+            CenterButtonHorizontally(Upload)
+            CenterButtonHorizontally(View)
+        End If
     End Sub
 
-    ' Event Handler for Label Click
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
-        ' Add your code here to handle Label clicks
-    End Sub
-
-    ' Event Handler for Upload Button Click
-    Private Sub Upload_Click(sender As Object, e As EventArgs) Handles Upload.Click
-        ' Add your code here to handle Upload button clicks
-    End Sub
-
-    ' Event Handler for View Button Click
-    Private Sub View_Click(sender As Object, e As EventArgs) Handles View.Click
-        ' Add your code here to handle View button clicks
+    Private Sub CenterButtonHorizontally(btn As Button)
+        If btn IsNot Nothing Then
+            btn.Left = (Me.ClientSize.Width - btn.Width) / 2
+        End If
     End Sub
 End Class

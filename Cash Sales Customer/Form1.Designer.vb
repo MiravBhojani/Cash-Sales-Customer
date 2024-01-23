@@ -48,16 +48,16 @@ Partial Class Form1
         DataGridView1.Location = New Point(0, 0)
         DataGridView1.Name = "DataGridView1"
         DataGridView1.RowHeadersWidth = 62
-        DataGridView1.Size = New Size(773, 456)
+        DataGridView1.Size = New Size(1862, 883)
         DataGridView1.TabIndex = 1
         ' 
         ' Button1
         ' 
         Button1.BackColor = Color.MediumSeaGreen
         Button1.ForeColor = SystemColors.ButtonHighlight
-        Button1.Location = New Point(12, 462)
+        Button1.Location = New Point(692, 910)
         Button1.Name = "Button1"
-        Button1.Size = New Size(112, 34)
+        Button1.Size = New Size(233, 54)
         Button1.TabIndex = 2
         Button1.Text = "View"
         Button1.UseVisualStyleBackColor = False
@@ -66,9 +66,9 @@ Partial Class Form1
         ' 
         Button2.BackColor = Color.DodgerBlue
         Button2.ForeColor = SystemColors.ButtonHighlight
-        Button2.Location = New Point(130, 462)
+        Button2.Location = New Point(956, 910)
         Button2.Name = "Button2"
-        Button2.Size = New Size(112, 34)
+        Button2.Size = New Size(233, 54)
         Button2.TabIndex = 3
         Button2.Text = "Upload"
         Button2.UseVisualStyleBackColor = False
@@ -78,7 +78,7 @@ Partial Class Form1
         AutoScaleDimensions = New SizeF(10F, 25F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Cornsilk
-        ClientSize = New Size(773, 558)
+        ClientSize = New Size(1862, 986)
         Controls.Add(Button2)
         Controls.Add(Button1)
         Controls.Add(DataGridView1)
