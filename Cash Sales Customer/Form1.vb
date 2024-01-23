@@ -4,7 +4,7 @@ Public Class Form1
     Private isFormLoaded As Boolean = False
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim connectionString As String = "server=127.0.0.1;userid=root;password=;database=cashsalescustomers"
+        Dim connectionString As String = "server=127.0.0.1;userid=root;password=;database=cashsales"
         Using connection As New MySqlConnection(connectionString)
             Try
                 connection.Open()
@@ -36,5 +36,9 @@ Public Class Form1
         If btn IsNot Nothing Then
             btn.Left = (Me.ClientSize.Width - btn.Width) / 2
         End If
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
     End Sub
 End Class

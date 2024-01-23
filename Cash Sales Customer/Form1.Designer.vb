@@ -54,8 +54,9 @@ Partial Class Form1
         ' Button1
         ' 
         Button1.BackColor = Color.MediumSeaGreen
+        Button1.Font = New Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Button1.ForeColor = SystemColors.ButtonHighlight
-        Button1.Location = New Point(692, 910)
+        Button1.Location = New Point(676, 910)
         Button1.Name = "Button1"
         Button1.Size = New Size(233, 54)
         Button1.TabIndex = 2
@@ -65,6 +66,7 @@ Partial Class Form1
         ' Button2
         ' 
         Button2.BackColor = Color.DodgerBlue
+        Button2.Font = New Font("Segoe UI", 14F)
         Button2.ForeColor = SystemColors.ButtonHighlight
         Button2.Location = New Point(956, 910)
         Button2.Name = "Button2"
