@@ -34,18 +34,23 @@ Public Class Form1
         End Using
     End Sub
 
-    ' Optional: Other Event Handlers
+    ' Event Handler for DataGridView Cell Content Click
     Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
-        ' Code for handling cell content click events
+        ' Add your code here to handle DataGridView cell clicks
     End Sub
 
-    ' Optional: Other Event Handlers
+    ' Event Handler for Label Click
     Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
-        ' Code for handling label click events
+        ' Add your code here to handle Label clicks
     End Sub
 
-    ' Optional: Other Event Handlers
+    ' Event Handler for Upload Button Click
+    Private Sub Upload_Click(sender As Object, e As EventArgs) Handles Upload.Click
+        ' Add your code here to handle Upload button clicks
+    End Sub
+
+    ' Event Handler for View Button Click
     Private Sub View_Click(sender As Object, e As EventArgs) Handles View.Click
-        ' Code for handling View button click events
+        ' Add your code here to handle View button clicks
     End Sub
 End Class
