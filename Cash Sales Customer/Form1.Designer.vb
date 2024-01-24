@@ -24,8 +24,8 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Label1 = New Label()
         DataGridView1 = New DataGridView()
-        Button1 = New Button()
-        Button2 = New Button()
+        viewbtn = New Button()
+        uploadbtn = New Button()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -48,41 +48,41 @@ Partial Class Form1
         DataGridView1.Location = New Point(0, 0)
         DataGridView1.Name = "DataGridView1"
         DataGridView1.RowHeadersWidth = 62
-        DataGridView1.Size = New Size(1862, 883)
+        DataGridView1.Size = New Size(1924, 883)
         DataGridView1.TabIndex = 1
         ' 
-        ' Button1
+        ' viewbtn
         ' 
-        Button1.BackColor = Color.MediumSeaGreen
-        Button1.Font = New Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Button1.ForeColor = SystemColors.ButtonHighlight
-        Button1.Location = New Point(676, 910)
-        Button1.Name = "Button1"
-        Button1.Size = New Size(233, 54)
-        Button1.TabIndex = 2
-        Button1.Text = "View"
-        Button1.UseVisualStyleBackColor = False
+        viewbtn.BackColor = Color.MediumSeaGreen
+        viewbtn.Font = New Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        viewbtn.ForeColor = SystemColors.ButtonHighlight
+        viewbtn.Location = New Point(676, 910)
+        viewbtn.Name = "viewbtn"
+        viewbtn.Size = New Size(233, 54)
+        viewbtn.TabIndex = 2
+        viewbtn.Text = "View"
+        viewbtn.UseVisualStyleBackColor = False
         ' 
-        ' Button2
+        ' uploadbtn
         ' 
-        Button2.BackColor = Color.DodgerBlue
-        Button2.Font = New Font("Segoe UI", 14F)
-        Button2.ForeColor = SystemColors.ButtonHighlight
-        Button2.Location = New Point(956, 910)
-        Button2.Name = "Button2"
-        Button2.Size = New Size(233, 54)
-        Button2.TabIndex = 3
-        Button2.Text = "Upload"
-        Button2.UseVisualStyleBackColor = False
+        uploadbtn.BackColor = Color.DodgerBlue
+        uploadbtn.Font = New Font("Segoe UI", 14F)
+        uploadbtn.ForeColor = SystemColors.ButtonHighlight
+        uploadbtn.Location = New Point(956, 910)
+        uploadbtn.Name = "uploadbtn"
+        uploadbtn.Size = New Size(233, 54)
+        uploadbtn.TabIndex = 3
+        uploadbtn.Text = "Upload"
+        uploadbtn.UseVisualStyleBackColor = False
         ' 
         ' Form1
         ' 
         AutoScaleDimensions = New SizeF(10F, 25F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Cornsilk
-        ClientSize = New Size(1862, 986)
-        Controls.Add(Button2)
-        Controls.Add(Button1)
+        ClientSize = New Size(1924, 1050)
+        Controls.Add(uploadbtn)
+        Controls.Add(viewbtn)
         Controls.Add(DataGridView1)
         Controls.Add(Label1)
         Name = "Form1"
@@ -94,8 +94,8 @@ Partial Class Form1
 
     Friend WithEvents Label1 As Label
     Friend WithEvents DataGridView1 As DataGridView
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button2 As Button
+    Friend WithEvents viewbtn As Button
+    Friend WithEvents uploadbtn As Button
     Friend WithEvents Upload As System.Windows.Forms.Button
     Friend WithEvents View As System.Windows.Forms.Button
     Friend WithEvents btnViewPdf As System.Windows.Forms.Button

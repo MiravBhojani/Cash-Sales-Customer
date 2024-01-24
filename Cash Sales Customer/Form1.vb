@@ -14,26 +14,44 @@ Public Class Form1
                 Dim ds As New DataSet()
                 da.Fill(ds, "cashcustomer_details")
                 DataGridView1.DataSource = ds.Tables("cashcustomer_details")
+
+                ' Hide the Link column if it exists
+                If DataGridView1.Columns.Contains("Link") Then
+                    DataGridView1.Columns("Link").Visible = False
+                End If
+
+                ' Set AutoSizeColumnsMode to Fill
+                DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+
             Catch ex As Exception
                 MessageBox.Show(ex.Message)
             Finally
                 connection.Close()
             End Try
         End Using
-
+        DataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         isFormLoaded = True
-        CenterButtonHorizontally(btnViewPdf)
     End Sub
 
-    Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
-        If isFormLoaded Then
-            CenterButtonHorizontally(btnViewPdf)
+    Private Sub viewBtn_Click(sender As Object, e As EventArgs) Handles viewbtn.Click
+        If DataGridView1.SelectedRows.Count > 0 Then
+            Dim selectedRow As DataGridViewRow = DataGridView1.SelectedRows(0)
+            Dim link As String = selectedRow.Cells("Link").Value.ToString()
+
+            If Not String.IsNullOrWhiteSpace(link) Then
+                Try
+                    Process.Start(New ProcessStartInfo(link) With {.UseShellExecute = True})
+                Catch ex As Exception
+                    MessageBox.Show("Error opening file: " & ex.Message)
+                End Try
+            Else
+                MessageBox.Show("PDF link not found for the selected customer.")
+            End If
+        Else
+            MessageBox.Show("Please select a customer from the list.")
         End If
     End Sub
 
-    Private Sub CenterButtonHorizontally(btn As Button)
-        If btn IsNot Nothing Then
-            btn.Left = (Me.ClientSize.Width - btn.Width) / 2
-        End If
-    End Sub
+    ' ... Other methods or event handlers can be added here ...
+
 End Class
