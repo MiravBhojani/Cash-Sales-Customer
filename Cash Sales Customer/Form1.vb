@@ -66,11 +66,11 @@ Public Class Form1
                         Dim destinationFilePath As String = "C:\Users\HP\Desktop\Cash Sale Customer Form\" & fileName
 
                         Try
-                            File.Move(sourceFilePath, destinationFilePath)
+                            File.Copy(sourceFilePath, destinationFilePath, True)
                             UpdateLink(selectedRow.Cells("Name").Value.ToString(), destinationFilePath)
                             LoadData()
                         Catch ex As Exception
-                            MessageBox.Show("Error moving file: " & ex.Message)
+                            MessageBox.Show("Error copying file: " & ex.Message)
                         End Try
                     End If
                 End Using
