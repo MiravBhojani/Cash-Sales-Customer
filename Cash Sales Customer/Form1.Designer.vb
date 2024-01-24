@@ -48,7 +48,7 @@ Partial Class Form1
         DataGridView1.Location = New Point(0, 0)
         DataGridView1.Name = "DataGridView1"
         DataGridView1.RowHeadersWidth = 62
-        DataGridView1.Size = New Size(1924, 883)
+        DataGridView1.Size = New Size(1924, 893)
         DataGridView1.TabIndex = 1
         ' 
         ' viewbtn

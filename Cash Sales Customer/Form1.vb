@@ -1,31 +1,36 @@
-﻿Imports MySql.Data.MySqlClient
+﻿Imports System.Data.SqlClient
 Imports System.Diagnostics
 Imports System.IO
 
 Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadData()
+        ConfigureDataGridView()
     End Sub
 
     Private Sub LoadData()
-        Dim connectionString As String = "server=127.0.0.1;userid=root;password=;database=cashsales"
-        Using connection As New MySqlConnection(connectionString)
+        Dim connectionString As String = "Server=MIRAVBHOJANI;Database=cashsales;Integrated Security=True;"
+        Using connection As New SqlConnection(connectionString)
             Try
                 connection.Open()
                 Dim query As String = "SELECT * FROM cashcustomer_details"
-                Dim da As New MySqlDataAdapter(query, connection)
+                Dim adapter As New SqlDataAdapter(query, connection)
                 Dim ds As New DataSet()
-                da.Fill(ds, "cashcustomer_details")
+                adapter.Fill(ds, "cashcustomer_details")
                 DataGridView1.DataSource = ds.Tables("cashcustomer_details")
-                DataGridView1.Columns("Link").Visible = False
-                DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+                DataGridView1.Columns("Link").Visible = False  ' Hide the Link column
             Catch ex As Exception
                 MessageBox.Show(ex.Message)
             Finally
                 connection.Close()
             End Try
         End Using
+    End Sub
+
+    Private Sub ConfigureDataGridView()
+        ' Set DataGridView properties
         DataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
     End Sub
 
     Private Sub viewBtn_Click(sender As Object, e As EventArgs) Handles viewbtn.Click
@@ -83,12 +88,12 @@ Public Class Form1
     End Sub
 
     Private Sub UpdateLink(customerName As String, newLink As String)
-        Dim connectionString As String = "server=127.0.0.1;userid=root;password=;database=cashsales"
-        Using connection As New MySqlConnection(connectionString)
+        Dim connectionString As String = "Server=MIRAVBHOJANI;Database=cashsales;Integrated Security=True;"
+        Using connection As New SqlConnection(connectionString)
             Try
                 connection.Open()
                 Dim query As String = "UPDATE cashcustomer_details SET Link = @newLink WHERE Name = @customerName"
-                Using command As New MySqlCommand(query, connection)
+                Using command As New SqlCommand(query, connection)
                     command.Parameters.AddWithValue("@newLink", newLink)
                     command.Parameters.AddWithValue("@customerName", customerName)
                     command.ExecuteNonQuery()
