@@ -109,14 +109,24 @@ Public Class Form1
     End Sub
 
     Private Sub viewBtn_Click(sender As Object, e As EventArgs) Handles viewbtn.Click
-        If DataGridView1.SelectedRows.Count > 0 Then
+        If DataGridView1.SelectedRows.Count > 0 AndAlso typeofdoc.SelectedIndex >= 0 Then
             Dim selectedRow As DataGridViewRow = DataGridView1.SelectedRows(0)
-            Dim aof_link As String = selectedRow.Cells("aof_link").Value.ToString()
+            Dim documentType As String = typeofdoc.SelectedItem.ToString()
+            Dim link As String = String.Empty
 
-            If Not String.IsNullOrWhiteSpace(aof_link) Then
-                If File.Exists(aof_link) Then
+            Select Case documentType
+                Case "Account opening form"
+                    link = selectedRow.Cells("aof_link").Value.ToString()
+                Case "Contracts"
+                    link = selectedRow.Cells("contractlink").Value.ToString()
+                Case "Reference"
+                    link = selectedRow.Cells("referencelink").Value.ToString()
+            End Select
+
+            If Not String.IsNullOrWhiteSpace(link) Then
+                If File.Exists(link) Then
                     Try
-                        Process.Start(New ProcessStartInfo(aof_link) With {.UseShellExecute = True})
+                        Process.Start(New ProcessStartInfo(link) With {.UseShellExecute = True})
                     Catch ex As Exception
                         MessageBox.Show("Error opening file: " & ex.Message)
                     End Try
@@ -124,30 +134,46 @@ Public Class Form1
                     MessageBox.Show("PDF file not found.")
                 End If
             Else
-                MessageBox.Show("No Link found for the selected customer.")
+                MessageBox.Show("No Link found for the selected document type.")
             End If
         Else
-            MessageBox.Show("Please select a record from the list.")
+            MessageBox.Show("Please select a record and a document type from the list.")
         End If
     End Sub
 
     Private Sub uploadBtn_Click(sender As Object, e As EventArgs) Handles uploadbtn.Click
-        If DataGridView1.SelectedRows.Count > 0 Then
+        If DataGridView1.SelectedRows.Count > 0 AndAlso typeofdoc.SelectedIndex >= 0 Then
             Dim selectedRow As DataGridViewRow = DataGridView1.SelectedRows(0)
-            Dim aof_link As String = selectedRow.Cells("aof_link").Value.ToString()
+            Dim documentType As String = typeofdoc.SelectedItem.ToString()
+            Dim linkColumnName As String = String.Empty
+            Dim destinationFolderPath As String = String.Empty
 
-            If String.IsNullOrWhiteSpace(aof_link) Then
+            Select Case documentType
+                Case "Account opening form"
+                    linkColumnName = "aof_link"
+                    destinationFolderPath = "C:\Users\HP\Desktop\Cash Sale Customer Form\"
+                Case "Contracts"
+                    linkColumnName = "contractlink"
+                    destinationFolderPath = "C:\Users\HP\Desktop\Contract\"
+                Case "Reference"
+                    linkColumnName = "referencelink"
+                    destinationFolderPath = "C:\Users\HP\Desktop\Reference\"
+            End Select
+
+            Dim existingLink As String = selectedRow.Cells(linkColumnName).Value.ToString()
+
+            If String.IsNullOrWhiteSpace(existingLink) Then
                 Using ofd As New OpenFileDialog()
                     ofd.Filter = "PDF Files|*.pdf"
 
                     If ofd.ShowDialog() = DialogResult.OK Then
                         Dim sourceFilePath As String = ofd.FileName
                         Dim fileName As String = Path.GetFileName(sourceFilePath)
-                        Dim destinationFilePath As String = "C:\Users\HP\Desktop\Cash Sale Customer Form\" & fileName
+                        Dim destinationFilePath As String = destinationFolderPath & fileName
 
                         Try
                             File.Copy(sourceFilePath, destinationFilePath, True)
-                            Updateaof_link(selectedRow.Cells("Name").Value.ToString(), destinationFilePath)
+                            UpdateDocumentLink(selectedRow.Cells("Name").Value.ToString(), destinationFilePath, linkColumnName)
                             LoadDataByName(customerdropdown.Text)
                         Catch ex As Exception
                             MessageBox.Show("Error copying file: " & ex.Message)
@@ -155,10 +181,10 @@ Public Class Form1
                     End If
                 End Using
             Else
-                MessageBox.Show("A Link already exists for this record.")
+                MessageBox.Show("A link already exists for this record.")
             End If
         Else
-            MessageBox.Show("Please select a record from the list.")
+            MessageBox.Show("Please select a record and a document type from the list.")
         End If
     End Sub
 
@@ -181,6 +207,24 @@ Public Class Form1
         End Using
     End Sub
     Private docTypes As List(Of String)
+    Private Sub UpdateDocumentLink(customerName As String, newLink As String, linkColumnName As String)
+        Dim connectionString As String = "Server=MIRAVBHOJANI;Database=cashsales;Integrated Security=True;"
+        Using connection As New SqlConnection(connectionString)
+            Try
+                connection.Open()
+                Dim query As String = $"UPDATE cashcustomer_details SET {linkColumnName} = @newLink WHERE Name = @customerName"
+                Using command As New SqlCommand(query, connection)
+                    command.Parameters.AddWithValue("@newLink", newLink)
+                    command.Parameters.AddWithValue("@customerName", customerName)
+                    command.ExecuteNonQuery()
+                End Using
+            Catch ex As Exception
+                MessageBox.Show("Database error: " & ex.Message)
+            Finally
+                connection.Close()
+            End Try
+        End Using
+    End Sub
     Private Sub InitializeTypeOfDocComboBox()
         docTypes = New List(Of String) From {
         "Account opening form",
