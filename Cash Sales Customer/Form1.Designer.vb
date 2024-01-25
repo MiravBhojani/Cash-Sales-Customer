@@ -28,6 +28,8 @@ Partial Class Form1
         Label1 = New Label()
         viewbtn = New Button()
         Load = New Button()
+        Typedoclabel = New Label()
+        typeofdoc = New ComboBox()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -96,12 +98,32 @@ Partial Class Form1
         Load.Text = "Load"
         Load.UseVisualStyleBackColor = False
         ' 
+        ' Typedoclabel
+        ' 
+        Typedoclabel.AutoSize = True
+        Typedoclabel.Font = New Font("Segoe UI", 11.0F, FontStyle.Bold)
+        Typedoclabel.Location = New Point(795, 20)
+        Typedoclabel.Name = "Typedoclabel"
+        Typedoclabel.Size = New Size(215, 30)
+        Typedoclabel.TabIndex = 7
+        Typedoclabel.Text = "Type of Document: "
+        ' 
+        ' typeofdoc
+        ' 
+        typeofdoc.FormattingEnabled = True
+        typeofdoc.Location = New Point(1016, 21)
+        typeofdoc.Name = "typeofdoc"
+        typeofdoc.Size = New Size(415, 33)
+        typeofdoc.TabIndex = 8
+        ' 
         ' Form1
         ' 
         AutoScaleDimensions = New SizeF(10.0F, 25.0F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Cornsilk
         ClientSize = New Size(1924, 1050)
+        Controls.Add(typeofdoc)
+        Controls.Add(Typedoclabel)
         Controls.Add(Load)
         Controls.Add(Label1)
         Controls.Add(customerdropdown)
@@ -123,6 +145,8 @@ Partial Class Form1
     Friend WithEvents Label1 As Label
     Friend WithEvents viewbtn As Button
     Friend WithEvents Load As Button
+    Friend WithEvents Typedoclabel As Label
+    Friend WithEvents typeofdoc As ComboBox
 
 
 
