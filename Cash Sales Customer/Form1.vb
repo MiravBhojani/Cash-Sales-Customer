@@ -83,9 +83,17 @@ Public Class Form1
                 adapter.Fill(ds, "cashcustomer_details")
                 DataGridView1.DataSource = ds.Tables("cashcustomer_details")
 
+                ' Hide specific columns
                 If DataGridView1.Columns.Contains("aof_link") Then
                     DataGridView1.Columns("aof_link").Visible = False
                 End If
+                If DataGridView1.Columns.Contains("contractlink") Then
+                    DataGridView1.Columns("contractlink").Visible = False
+                End If
+                If DataGridView1.Columns.Contains("referencelink") Then
+                    DataGridView1.Columns("referencelink").Visible = False
+                End If
+
             Catch ex As Exception
                 MessageBox.Show(ex.Message)
             Finally
