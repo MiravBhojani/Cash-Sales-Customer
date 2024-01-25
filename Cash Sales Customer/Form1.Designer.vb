@@ -24,7 +24,7 @@ Partial Class Form1
     Private Sub InitializeComponent()
         DataGridView1 = New DataGridView()
         uploadbtn = New Button()
-        ComboBox1 = New ComboBox()
+        customerdropdown = New ComboBox()
         Label1 = New Label()
         viewbtn = New Button()
         Load = New Button()
@@ -45,27 +45,27 @@ Partial Class Form1
         ' uploadbtn
         ' 
         uploadbtn.BackColor = Color.DodgerBlue
-        uploadbtn.Font = New Font("Segoe UI", 14F)
+        uploadbtn.Font = New Font("Segoe UI", 14.0F)
         uploadbtn.ForeColor = SystemColors.ButtonHighlight
-        uploadbtn.Location = New Point(1257, 5)
+        uploadbtn.Location = New Point(1799, 5)
         uploadbtn.Name = "uploadbtn"
-        uploadbtn.Size = New Size(233, 54)
+        uploadbtn.Size = New Size(113, 54)
         uploadbtn.TabIndex = 3
         uploadbtn.Text = "Upload"
         uploadbtn.UseVisualStyleBackColor = False
         ' 
-        ' ComboBox1
+        ' customerdropdown
         ' 
-        ComboBox1.FormattingEnabled = True
-        ComboBox1.Location = New Point(219, 21)
-        ComboBox1.Name = "ComboBox1"
-        ComboBox1.Size = New Size(554, 33)
-        ComboBox1.TabIndex = 4
+        customerdropdown.FormattingEnabled = True
+        customerdropdown.Location = New Point(219, 21)
+        customerdropdown.Name = "customerdropdown"
+        customerdropdown.Size = New Size(554, 33)
+        customerdropdown.TabIndex = 4
         ' 
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Font = New Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label1.Font = New Font("Segoe UI", 11.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label1.Location = New Point(21, 20)
         Label1.Name = "Label1"
         Label1.Size = New Size(192, 30)
@@ -75,11 +75,11 @@ Partial Class Form1
         ' viewbtn
         ' 
         viewbtn.BackColor = Color.MediumSeaGreen
-        viewbtn.Font = New Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        viewbtn.Font = New Font("Segoe UI", 14.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         viewbtn.ForeColor = SystemColors.ButtonHighlight
-        viewbtn.Location = New Point(1018, 5)
+        viewbtn.Location = New Point(1680, 5)
         viewbtn.Name = "viewbtn"
-        viewbtn.Size = New Size(233, 54)
+        viewbtn.Size = New Size(113, 54)
         viewbtn.TabIndex = 2
         viewbtn.Text = "View"
         viewbtn.UseVisualStyleBackColor = False
@@ -87,24 +87,24 @@ Partial Class Form1
         ' Load
         ' 
         Load.BackColor = Color.DarkCyan
-        Load.Font = New Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Load.Font = New Font("Segoe UI", 14.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Load.ForeColor = SystemColors.ButtonHighlight
-        Load.Location = New Point(779, 5)
+        Load.Location = New Point(1561, 5)
         Load.Name = "Load"
-        Load.Size = New Size(233, 54)
+        Load.Size = New Size(113, 54)
         Load.TabIndex = 6
         Load.Text = "Load"
         Load.UseVisualStyleBackColor = False
         ' 
         ' Form1
         ' 
-        AutoScaleDimensions = New SizeF(10F, 25F)
+        AutoScaleDimensions = New SizeF(10.0F, 25.0F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Cornsilk
         ClientSize = New Size(1924, 1050)
         Controls.Add(Load)
         Controls.Add(Label1)
-        Controls.Add(ComboBox1)
+        Controls.Add(customerdropdown)
         Controls.Add(uploadbtn)
         Controls.Add(viewbtn)
         Controls.Add(DataGridView1)
@@ -119,7 +119,7 @@ Partial Class Form1
     Friend WithEvents Upload As System.Windows.Forms.Button
     Friend WithEvents View As System.Windows.Forms.Button
     Friend WithEvents btnViewPdf As System.Windows.Forms.Button
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents customerdropdown As ComboBox
     Friend WithEvents Label1 As Label
     Friend WithEvents viewbtn As Button
     Friend WithEvents Load As Button
