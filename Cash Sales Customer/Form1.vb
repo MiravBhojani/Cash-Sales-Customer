@@ -287,4 +287,11 @@ Public Class Form1
         End If
     End Sub
 
+    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles allrb.CheckedChanged
+
+    End Sub
+
+    Private Sub unavailabledocrb_CheckedChanged(sender As Object, e As EventArgs) Handles unavailabledocrb.CheckedChanged
+
+    End Sub
 End Class

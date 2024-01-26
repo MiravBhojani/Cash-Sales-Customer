@@ -30,7 +30,12 @@ Partial Class Form1
         AccountLoad = New Button()
         Typedoclabel = New Label()
         typeofdoc = New ComboBox()
+        documentbox = New GroupBox()
+        allrb = New RadioButton()
+        unavailabledocrb = New RadioButton()
+        availabledocrb = New RadioButton()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
+        documentbox.SuspendLayout()
         SuspendLayout()
         ' 
         ' DataGridView1
@@ -48,9 +53,9 @@ Partial Class Form1
         ' uploadbtn
         ' 
         uploadbtn.BackColor = Color.DodgerBlue
-        uploadbtn.Font = New Font("Segoe UI", 14.0F)
+        uploadbtn.Font = New Font("Segoe UI", 14F)
         uploadbtn.ForeColor = SystemColors.ButtonHighlight
-        uploadbtn.Location = New Point(1799, 5)
+        uploadbtn.Location = New Point(1695, 5)
         uploadbtn.Name = "uploadbtn"
         uploadbtn.Size = New Size(113, 54)
         uploadbtn.TabIndex = 3
@@ -68,7 +73,7 @@ Partial Class Form1
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Font = New Font("Segoe UI", 11.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label1.Font = New Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label1.Location = New Point(21, 20)
         Label1.Name = "Label1"
         Label1.Size = New Size(192, 30)
@@ -78,22 +83,22 @@ Partial Class Form1
         ' viewbtn
         ' 
         viewbtn.BackColor = Color.MediumSeaGreen
-        viewbtn.Font = New Font("Segoe UI", 14.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        viewbtn.Font = New Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         viewbtn.ForeColor = SystemColors.ButtonHighlight
-        viewbtn.Location = New Point(1680, 5)
+        viewbtn.Location = New Point(1576, 5)
         viewbtn.Name = "viewbtn"
         viewbtn.Size = New Size(113, 54)
         viewbtn.TabIndex = 2
         viewbtn.Text = "View"
         viewbtn.UseVisualStyleBackColor = False
         ' 
-        ' Load
+        ' AccountLoad
         ' 
         AccountLoad.BackColor = Color.DarkCyan
-        AccountLoad.Font = New Font("Segoe UI", 14.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        AccountLoad.Font = New Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         AccountLoad.ForeColor = SystemColors.ButtonHighlight
-        AccountLoad.Location = New Point(1561, 5)
-        AccountLoad.Name = "Load"
+        AccountLoad.Location = New Point(1457, 5)
+        AccountLoad.Name = "AccountLoad"
         AccountLoad.Size = New Size(113, 54)
         AccountLoad.TabIndex = 6
         AccountLoad.Text = "Load"
@@ -102,7 +107,7 @@ Partial Class Form1
         ' Typedoclabel
         ' 
         Typedoclabel.AutoSize = True
-        Typedoclabel.Font = New Font("Segoe UI", 11.0F, FontStyle.Bold)
+        Typedoclabel.Font = New Font("Segoe UI", 11F, FontStyle.Bold)
         Typedoclabel.Location = New Point(795, 20)
         Typedoclabel.Name = "Typedoclabel"
         Typedoclabel.Size = New Size(215, 30)
@@ -117,12 +122,59 @@ Partial Class Form1
         typeofdoc.Size = New Size(415, 33)
         typeofdoc.TabIndex = 8
         ' 
+        ' documentbox
+        ' 
+        documentbox.Controls.Add(allrb)
+        documentbox.Controls.Add(unavailabledocrb)
+        documentbox.Controls.Add(availabledocrb)
+        documentbox.Font = New Font("Segoe UI", 11F, FontStyle.Bold)
+        documentbox.Location = New Point(21, 60)
+        documentbox.Name = "documentbox"
+        documentbox.Size = New Size(635, 76)
+        documentbox.TabIndex = 9
+        documentbox.TabStop = False
+        documentbox.Text = "Document "
+        ' 
+        ' allrb
+        ' 
+        allrb.AutoSize = True
+        allrb.Location = New Point(546, 30)
+        allrb.Name = "allrb"
+        allrb.Size = New Size(87, 34)
+        allrb.TabIndex = 2
+        allrb.TabStop = True
+        allrb.Text = "Both"
+        allrb.UseVisualStyleBackColor = True
+        ' 
+        ' unavailabledocrb
+        ' 
+        unavailabledocrb.AutoSize = True
+        unavailabledocrb.Location = New Point(268, 30)
+        unavailabledocrb.Name = "unavailabledocrb"
+        unavailabledocrb.Size = New Size(272, 34)
+        unavailabledocrb.TabIndex = 1
+        unavailabledocrb.TabStop = True
+        unavailabledocrb.Text = "Unavailable Document"
+        unavailabledocrb.UseVisualStyleBackColor = True
+        ' 
+        ' availabledocrb
+        ' 
+        availabledocrb.AutoSize = True
+        availabledocrb.Location = New Point(10, 30)
+        availabledocrb.Name = "availabledocrb"
+        availabledocrb.Size = New Size(252, 34)
+        availabledocrb.TabIndex = 0
+        availabledocrb.TabStop = True
+        availabledocrb.Text = "Available Document "
+        availabledocrb.UseVisualStyleBackColor = True
+        ' 
         ' Form1
         ' 
-        AutoScaleDimensions = New SizeF(10.0F, 25.0F)
+        AutoScaleDimensions = New SizeF(10F, 25F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.WhiteSmoke
         ClientSize = New Size(1924, 1050)
+        Controls.Add(documentbox)
         Controls.Add(typeofdoc)
         Controls.Add(Typedoclabel)
         Controls.Add(AccountLoad)
@@ -134,6 +186,8 @@ Partial Class Form1
         Name = "Form1"
         Text = "Cash Sales Customer"
         CType(DataGridView1, ComponentModel.ISupportInitialize).EndInit()
+        documentbox.ResumeLayout(False)
+        documentbox.PerformLayout()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -148,6 +202,10 @@ Partial Class Form1
     Friend WithEvents AccountLoad As Button
     Friend WithEvents Typedoclabel As Label
     Friend WithEvents typeofdoc As ComboBox
+    Friend WithEvents documentbox As GroupBox
+    Friend WithEvents unavailabledocrb As RadioButton
+    Friend WithEvents availabledocrb As RadioButton
+    Friend WithEvents allrb As RadioButton
 
 
 
