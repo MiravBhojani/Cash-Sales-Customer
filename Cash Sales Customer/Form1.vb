@@ -2,6 +2,7 @@
 Imports System.Diagnostics
 Imports System.IO
 Imports System.Runtime.InteropServices
+Imports System.Text
 Imports System.Windows.Forms
 
 Public Class Form1
@@ -76,16 +77,36 @@ Public Class Form1
         Using connection As New SqlConnection(connectionString)
             Try
                 connection.Open()
-                Dim query As String
-                If String.IsNullOrEmpty(customerName) Then
-                    ' Load all data if no customer name is provided
-                    query = "SELECT * FROM cashcustomer_details"
-                Else
-                    ' Load data for the specific customer
-                    query = "SELECT * FROM cashcustomer_details WHERE Name = @customerName"
+                Dim query As New StringBuilder("SELECT * FROM cashcustomer_details")
+
+                If availabledocrb.Checked OrElse unavailabledocrb.Checked Then
+                    Dim docTypeColumn As String = String.Empty
+                    Select Case typeofdoc.SelectedItem.ToString()
+                        Case "Account opening form"
+                            docTypeColumn = "aof_link"
+                        Case "Contracts"
+                            docTypeColumn = "contractlink"
+                        Case "Reference"
+                            docTypeColumn = "referencelink"
+                    End Select
+
+                    If availabledocrb.Checked Then
+                        query.Append($" WHERE {docTypeColumn} IS NOT NULL")
+                    ElseIf unavailabledocrb.Checked Then
+                        query.Append($" WHERE {docTypeColumn} IS NULL")
+                    End If
                 End If
 
-                Dim adapter As New SqlDataAdapter(query, connection)
+                If Not String.IsNullOrEmpty(customerName) Then
+                    If query.ToString().Contains("WHERE") Then
+                        query.Append(" AND")
+                    Else
+                        query.Append(" WHERE")
+                    End If
+                    query.Append(" Name = @customerName")
+                End If
+
+                Dim adapter As New SqlDataAdapter(query.ToString(), connection)
                 If Not String.IsNullOrEmpty(customerName) Then
                     adapter.SelectCommand.Parameters.AddWithValue("@customerName", customerName)
                 End If
