@@ -130,7 +130,7 @@ Partial Class Form1
         documentbox.Font = New Font("Segoe UI", 11F, FontStyle.Bold)
         documentbox.Location = New Point(21, 60)
         documentbox.Name = "documentbox"
-        documentbox.Size = New Size(635, 76)
+        documentbox.Size = New Size(636, 76)
         documentbox.TabIndex = 9
         documentbox.TabStop = False
         documentbox.Text = "Document "
