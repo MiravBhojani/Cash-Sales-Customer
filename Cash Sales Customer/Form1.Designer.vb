@@ -35,11 +35,11 @@ Partial Class Form1
         ' 
         ' DataGridView1
         ' 
-        DataGridView1.Anchor = AnchorStyles.Bottom
-        DataGridView1.BackgroundColor = SystemColors.ControlLight
+        DataGridView1.BackgroundColor = SystemColors.AppWorkspace
         DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridView1.Dock = DockStyle.Bottom
         DataGridView1.ImeMode = ImeMode.On
-        DataGridView1.Location = New Point(0, 256)
+        DataGridView1.Location = New Point(0, 262)
         DataGridView1.Name = "DataGridView1"
         DataGridView1.RowHeadersWidth = 62
         DataGridView1.Size = New Size(1924, 788)
