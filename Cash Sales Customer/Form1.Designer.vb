@@ -27,7 +27,7 @@ Partial Class Form1
         customerdropdown = New ComboBox()
         Label1 = New Label()
         viewbtn = New Button()
-        Load = New Button()
+        AccountLoad = New Button()
         Typedoclabel = New Label()
         typeofdoc = New ComboBox()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
@@ -89,15 +89,15 @@ Partial Class Form1
         ' 
         ' Load
         ' 
-        Load.BackColor = Color.DarkCyan
-        Load.Font = New Font("Segoe UI", 14.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Load.ForeColor = SystemColors.ButtonHighlight
-        Load.Location = New Point(1561, 5)
-        Load.Name = "Load"
-        Load.Size = New Size(113, 54)
-        Load.TabIndex = 6
-        Load.Text = "Load"
-        Load.UseVisualStyleBackColor = False
+        AccountLoad.BackColor = Color.DarkCyan
+        AccountLoad.Font = New Font("Segoe UI", 14.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        AccountLoad.ForeColor = SystemColors.ButtonHighlight
+        AccountLoad.Location = New Point(1561, 5)
+        AccountLoad.Name = "Load"
+        AccountLoad.Size = New Size(113, 54)
+        AccountLoad.TabIndex = 6
+        AccountLoad.Text = "Load"
+        AccountLoad.UseVisualStyleBackColor = False
         ' 
         ' Typedoclabel
         ' 
@@ -125,7 +125,7 @@ Partial Class Form1
         ClientSize = New Size(1924, 1050)
         Controls.Add(typeofdoc)
         Controls.Add(Typedoclabel)
-        Controls.Add(Load)
+        Controls.Add(AccountLoad)
         Controls.Add(Label1)
         Controls.Add(customerdropdown)
         Controls.Add(uploadbtn)
@@ -145,7 +145,7 @@ Partial Class Form1
     Friend WithEvents customerdropdown As ComboBox
     Friend WithEvents Label1 As Label
     Friend WithEvents viewbtn As Button
-    Friend WithEvents Load As Button
+    Friend WithEvents AccountLoad As Button
     Friend WithEvents Typedoclabel As Label
     Friend WithEvents typeofdoc As ComboBox
 

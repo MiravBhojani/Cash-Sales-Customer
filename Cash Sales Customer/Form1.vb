@@ -117,7 +117,7 @@ Public Class Form1
         DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         DataGridView1.DataSource = Nothing
     End Sub
-    Private Sub LoadButton_Click(sender As Object, e As EventArgs) Handles Load.Click
+    Private Sub LoadButton_Click(sender As Object, e As EventArgs) Handles AccountLoad.Click
         ' Check if a type of document is selected
         If typeofdoc.SelectedIndex < 0 Then
             MessageBox.Show("Please select a type of document.")
