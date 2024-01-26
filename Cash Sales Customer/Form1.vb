@@ -76,23 +76,26 @@ Public Class Form1
         Using connection As New SqlConnection(connectionString)
             Try
                 connection.Open()
-                Dim query As String = "SELECT * FROM cashcustomer_details WHERE Name = @customerName"
+                Dim query As String
+                If String.IsNullOrEmpty(customerName) Then
+                    ' Load all data if no customer name is provided
+                    query = "SELECT * FROM cashcustomer_details"
+                Else
+                    ' Load data for the specific customer
+                    query = "SELECT * FROM cashcustomer_details WHERE Name = @customerName"
+                End If
+
                 Dim adapter As New SqlDataAdapter(query, connection)
-                adapter.SelectCommand.Parameters.AddWithValue("@customerName", customerName)
+                If Not String.IsNullOrEmpty(customerName) Then
+                    adapter.SelectCommand.Parameters.AddWithValue("@customerName", customerName)
+                End If
+
                 Dim ds As New DataSet()
                 adapter.Fill(ds, "cashcustomer_details")
                 DataGridView1.DataSource = ds.Tables("cashcustomer_details")
 
                 ' Hide specific columns
-                If DataGridView1.Columns.Contains("aof_link") Then
-                    DataGridView1.Columns("aof_link").Visible = False
-                End If
-                If DataGridView1.Columns.Contains("contractlink") Then
-                    DataGridView1.Columns("contractlink").Visible = False
-                End If
-                If DataGridView1.Columns.Contains("referencelink") Then
-                    DataGridView1.Columns("referencelink").Visible = False
-                End If
+                HideUnwantedColumns()
 
             Catch ex As Exception
                 MessageBox.Show(ex.Message)
@@ -101,21 +104,29 @@ Public Class Form1
             End Try
         End Using
     End Sub
-
+    Private Sub HideUnwantedColumns()
+        Dim columnsToHide As String() = {"aof_link", "contractlink", "referencelink"}
+        For Each colName As String In columnsToHide
+            If DataGridView1.Columns.Contains(colName) Then
+                DataGridView1.Columns(colName).Visible = False
+            End If
+        Next
+    End Sub
     Private Sub ConfigureDataGridView()
         DataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         DataGridView1.DataSource = Nothing
     End Sub
-
     Private Sub LoadButton_Click(sender As Object, e As EventArgs) Handles Load.Click
-        If customerdropdown.Text <> String.Empty Then
-            LoadDataByName(customerdropdown.Text)
-        Else
-            MessageBox.Show("Please select a customer name.")
+        ' Check if a type of document is selected
+        If typeofdoc.SelectedIndex < 0 Then
+            MessageBox.Show("Please select a type of document.")
+            Return
         End If
-    End Sub
 
+        ' Load data by customer name or all data if no customer name is selected
+        LoadDataByName(customerdropdown.Text)
+    End Sub
     Private Sub viewBtn_Click(sender As Object, e As EventArgs) Handles viewbtn.Click
         If DataGridView1.SelectedRows.Count > 0 AndAlso typeofdoc.SelectedIndex >= 0 Then
             Dim selectedRow As DataGridViewRow = DataGridView1.SelectedRows(0)
@@ -148,7 +159,6 @@ Public Class Form1
             MessageBox.Show("Please select a record and a document type from the list.")
         End If
     End Sub
-
     Private Sub uploadBtn_Click(sender As Object, e As EventArgs) Handles uploadbtn.Click
         If DataGridView1.SelectedRows.Count > 0 AndAlso typeofdoc.SelectedIndex >= 0 Then
             Dim selectedRow As DataGridViewRow = DataGridView1.SelectedRows(0)
