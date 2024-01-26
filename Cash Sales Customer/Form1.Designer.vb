@@ -34,8 +34,11 @@ Partial Class Form1
         allrb = New RadioButton()
         unavailabledocrb = New RadioButton()
         availabledocrb = New RadioButton()
+        rowsbox = New GroupBox()
+        rowcountlabel = New Label()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         documentbox.SuspendLayout()
+        rowsbox.SuspendLayout()
         SuspendLayout()
         ' 
         ' DataGridView1
@@ -168,12 +171,32 @@ Partial Class Form1
         availabledocrb.Text = "Available Document "
         availabledocrb.UseVisualStyleBackColor = True
         ' 
+        ' rowsbox
+        ' 
+        rowsbox.Controls.Add(rowcountlabel)
+        rowsbox.Font = New Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        rowsbox.Location = New Point(674, 60)
+        rowsbox.Name = "rowsbox"
+        rowsbox.Size = New Size(300, 76)
+        rowsbox.TabIndex = 11
+        rowsbox.TabStop = False
+        rowsbox.Text = "Row Count"
+        ' 
+        ' rowcountlabel
+        ' 
+        rowcountlabel.AutoSize = True
+        rowcountlabel.Location = New Point(20, 33)
+        rowcountlabel.Name = "rowcountlabel"
+        rowcountlabel.Size = New Size(0, 30)
+        rowcountlabel.TabIndex = 0
+        ' 
         ' Form1
         ' 
         AutoScaleDimensions = New SizeF(10F, 25F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.WhiteSmoke
         ClientSize = New Size(1924, 1050)
+        Controls.Add(rowsbox)
         Controls.Add(documentbox)
         Controls.Add(typeofdoc)
         Controls.Add(Typedoclabel)
@@ -188,6 +211,8 @@ Partial Class Form1
         CType(DataGridView1, ComponentModel.ISupportInitialize).EndInit()
         documentbox.ResumeLayout(False)
         documentbox.PerformLayout()
+        rowsbox.ResumeLayout(False)
+        rowsbox.PerformLayout()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -206,6 +231,8 @@ Partial Class Form1
     Friend WithEvents unavailabledocrb As RadioButton
     Friend WithEvents availabledocrb As RadioButton
     Friend WithEvents allrb As RadioButton
+    Friend WithEvents rowsbox As GroupBox
+    Friend WithEvents rowcountlabel As Label
 
 
 

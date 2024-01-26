@@ -4,6 +4,7 @@ Imports System.IO
 Imports System.Runtime.InteropServices
 Imports System.Text
 Imports System.Windows.Forms
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement.Button
 
 Public Class Form1
     Private customerNames As List(Of String)
@@ -13,6 +14,7 @@ Public Class Form1
         ConfigureDataGridView()
         ' AddHandler customerdropdown.TextChanged, AddressOf CustomerDropdown_TextChanged
         InitializeTypeOfDocComboBox()
+        documentbox.Enabled = True
     End Sub
 
     Private Sub LoadCustomerNames()
@@ -63,6 +65,7 @@ Public Class Form1
         customerdropdown.SelectionStart = enteredText.Length
         customerdropdown.SelectionLength = 0
         customerdropdown.DroppedDown = True
+        documentbox.Enabled = String.IsNullOrEmpty(customerdropdown.Text)
     End Sub
     Private Sub CustomerDropdown_KeyDown(sender As Object, e As KeyEventArgs) Handles customerdropdown.KeyDown
         If e.KeyCode = Keys.Down OrElse e.KeyCode = Keys.Up Then
@@ -79,31 +82,28 @@ Public Class Form1
                 connection.Open()
                 Dim query As New StringBuilder("SELECT * FROM cashcustomer_details")
 
-                If availabledocrb.Checked OrElse unavailabledocrb.Checked Then
-                    Dim docTypeColumn As String = String.Empty
-                    Select Case typeofdoc.SelectedItem.ToString()
-                        Case "Account opening form"
-                            docTypeColumn = "aof_link"
-                        Case "Contracts"
-                            docTypeColumn = "contractlink"
-                        Case "Reference"
-                            docTypeColumn = "referencelink"
-                    End Select
-
-                    If availabledocrb.Checked Then
-                        query.Append($" WHERE {docTypeColumn} IS NOT NULL")
-                    ElseIf unavailabledocrb.Checked Then
-                        query.Append($" WHERE {docTypeColumn} IS NULL")
-                    End If
-                End If
-
+                ' Check if a customer name is provided
                 If Not String.IsNullOrEmpty(customerName) Then
-                    If query.ToString().Contains("WHERE") Then
-                        query.Append(" AND")
-                    Else
-                        query.Append(" WHERE")
+                    query.Append(" WHERE Name = @customerName")
+                Else
+                    ' Apply radio button filter only if no customer name is provided
+                    If availabledocrb.Checked OrElse unavailabledocrb.Checked Then
+                        Dim docTypeColumn As String = String.Empty
+                        Select Case typeofdoc.SelectedItem.ToString()
+                            Case "Account opening form"
+                                docTypeColumn = "aof_link"
+                            Case "Contracts"
+                                docTypeColumn = "contractlink"
+                            Case "Reference"
+                                docTypeColumn = "referencelink"
+                        End Select
+
+                        If availabledocrb.Checked Then
+                            query.Append($" WHERE {docTypeColumn} IS NOT NULL")
+                        ElseIf unavailabledocrb.Checked Then
+                            query.Append($" WHERE {docTypeColumn} IS NULL")
+                        End If
                     End If
-                    query.Append(" Name = @customerName")
                 End If
 
                 Dim adapter As New SqlDataAdapter(query.ToString(), connection)
@@ -123,7 +123,30 @@ Public Class Form1
             Finally
                 connection.Close()
             End Try
+            Dim totalRowCount As Integer = GetTotalRowCount()
+            Dim loadedRowCount As Integer = DataGridView1.RowCount
+            UpdateRowCountDisplay(loadedRowCount, totalRowCount)
+            If DataGridView1.Rows.Count > 0 Then
+                ' AllowUserToAddRows is set to False to prevent an empty row from being added
+                DataGridView1.AllowUserToAddRows = False
+            Else
+                ' If no data is loaded, you can optionally set AllowUserToAddRows to True or leave it False
+                DataGridView1.AllowUserToAddRows = False
+            End If
+
+            ' Count the number of rows loaded in the DataGridView
+            Dim loadedRowsCount As Integer = DataGridView1.RowCount
+
+            ' Get the total row count from the database
+            Dim totalRowsInDatabase As Integer = GetTotalRowCount()
+
+            ' Display the row count information
+            rowcountlabel.Text = $"{loadedRowsCount} out of {totalRowsInDatabase}"
         End Using
+    End Sub
+    Private Sub UpdateRowCountDisplay(loadedRowCount As Integer, totalRowCount As Integer)
+        ' Assuming you have a label control to display the row count
+        rowcountlabel.Text = $"{loadedRowCount} out of {totalRowCount}"
     End Sub
     Private Sub HideUnwantedColumns()
         Dim columnsToHide As String() = {"aof_link", "contractlink", "referencelink"}
@@ -144,10 +167,15 @@ Public Class Form1
             MessageBox.Show("Please select a type of document.")
             Return
         End If
-
-        ' Load data by customer name or all data if no customer name is selected
+        If String.IsNullOrEmpty(customerdropdown.Text) Then
+            Dim result As DialogResult = MessageBox.Show("Are you sure you want to load all the data?", "Confirmation", MessageBoxButtons.YesNo)
+            If result = DialogResult.No Then
+                Return
+            End If
+        End If
         LoadDataByName(customerdropdown.Text)
     End Sub
+
     Private Sub viewBtn_Click(sender As Object, e As EventArgs) Handles viewbtn.Click
         If DataGridView1.SelectedRows.Count > 0 AndAlso typeofdoc.SelectedIndex >= 0 Then
             Dim selectedRow As DataGridViewRow = DataGridView1.SelectedRows(0)
@@ -307,6 +335,24 @@ Public Class Form1
             End If
         End If
     End Sub
+    Private Function GetTotalRowCount() As Integer
+        Dim totalCount As Integer = 0
+        Dim connectionString As String = "Server=MIRAVBHOJANI;Database=cashsales;Integrated Security=True;"
+        Using connection As New SqlConnection(connectionString)
+            Try
+                connection.Open()
+                Dim query As String = "SELECT COUNT(*) FROM cashcustomer_details"
+                Using command As New SqlCommand(query, connection)
+                    totalCount = Convert.ToInt32(command.ExecuteScalar())
+                End Using
+            Catch ex As Exception
+                MessageBox.Show("Database error: " & ex.Message)
+            Finally
+                connection.Close()
+            End Try
+        End Using
+        Return totalCount
+    End Function
 
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles allrb.CheckedChanged
 
@@ -315,4 +361,23 @@ Public Class Form1
     Private Sub unavailabledocrb_CheckedChanged(sender As Object, e As EventArgs) Handles unavailabledocrb.CheckedChanged
 
     End Sub
+    Private Sub CenterRowCountLabel()
+        ' Disable AutoSize to allow manual resizing
+        rowcountlabel.AutoSize = False
+
+        ' Match the width of rowcountlabel to the width of rowsbox
+        ' and set a fixed height (adjust the height as needed)
+        rowcountlabel.Width = rowsbox.Width
+        rowcountlabel.Height = 30 ' Adjust the height as needed
+
+        ' Set the Text Alignment to Middle Center
+        rowcountlabel.TextAlign = ContentAlignment.MiddleCenter
+
+        ' Calculate the position to center the label in the rowsbox
+        rowcountlabel.Location = New Point(
+            (rowsbox.Width - rowcountlabel.Width) \ 2,
+            (rowsbox.Height - rowcountlabel.Height) \ 2)
+    End Sub
+
+
 End Class
