@@ -36,6 +36,7 @@ Partial Class Form1
         ' DataGridView1
         ' 
         DataGridView1.Anchor = AnchorStyles.Bottom
+        DataGridView1.BackgroundColor = SystemColors.ControlLight
         DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridView1.ImeMode = ImeMode.On
         DataGridView1.Location = New Point(0, 256)
@@ -120,7 +121,7 @@ Partial Class Form1
         ' 
         AutoScaleDimensions = New SizeF(10.0F, 25.0F)
         AutoScaleMode = AutoScaleMode.Font
-        BackColor = Color.Cornsilk
+        BackColor = Color.WhiteSmoke
         ClientSize = New Size(1924, 1050)
         Controls.Add(typeofdoc)
         Controls.Add(Typedoclabel)

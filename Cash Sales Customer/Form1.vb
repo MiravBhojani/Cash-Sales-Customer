@@ -6,8 +6,8 @@ Imports System.Windows.Forms
 
 Public Class Form1
     Private customerNames As List(Of String)
-    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        customerNames = New List(Of String)()
+    Private Sub Form1_Load(sender As Object, e As EventArgs)
+        customerNames = New List(Of String)
         LoadCustomerNames()
         ConfigureDataGridView()
         ' AddHandler customerdropdown.TextChanged, AddressOf CustomerDropdown_TextChanged
